@@ -1,4 +1,4 @@
-# UnitWise PLUS (static progressive web app)
+# Unit-price-tracker PLUS (static progressive web app)
 
 A grocery unit-price comparison and store-by-store planner. No server or build process required.
 
