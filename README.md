@@ -18,3 +18,10 @@ Demo prices are illustrations only. No retailer live feeds, authenticated accoun
 
 ## Store-specific products / Costco
 Added Costco to the sample listings, with Kirkland Signature brand identification, and store-brand examples for Walmart, Target, Aldi, and ShopRite. Every listing now shows **store, product name, brand, category, package quantity/unit, price and unit price**. Search supports brands and categories. Custom price-entry form supports brand and category. These example prices are **illustrations**, not verified retailer prices or guarantees that a particular store stocks an item. Similar generic product types may have different brands or quality; unit-price winners compare category-level products, not necessarily identical SKUs.
+
+
+## Version 5: detailed product descriptions
+- Adds precise example product descriptors (brand, type, form, fat level, protein descriptor, flavor, dietary notes, pack size). These example product identities and prices are **illustrative**, not confirmed store SKUs or nutrition facts.
+- Search by descriptors and filter by product type, fat level and protein label.
+- Manage Prices supports entering detailed descriptions for your own store listings; check the product packaging before making nutrition claims.
+- Existing local storage keys, shopping lists, backup imports, receipts and Version 4 tools retained.
