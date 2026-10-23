@@ -1,6 +1,6 @@
 /* Unit-price-tracker V4 enhancement; builds on the original browser-only app. */
 (()=>{'use strict';
-const el=id=>document.getElementById(id), safe=window.esc, money=window.cash;
+const el=id=>document.getElementById(id), safe=esc, money=cash;
 const read=(k,d=[])=>{try{const a=JSON.parse(localStorage.getItem(k));return Array.isArray(d)?(Array.isArray(a)?a:d):(a??d)}catch{return d}};
 let history=read('upt-v4-history'),receipts=read('upt-v4-receipts'),deals=read('upt-v4-deals');
 const write=()=>{localStorage.setItem('upt-v4-history',JSON.stringify(history));localStorage.setItem('upt-v4-receipts',JSON.stringify(receipts));localStorage.setItem('upt-v4-deals',JSON.stringify(deals))};

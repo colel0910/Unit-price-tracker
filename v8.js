@@ -14,6 +14,8 @@ function loadScannerLib(){
   const tag=document.createElement('script');
   tag.src='https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js';
   tag.async=true;
+  const timer=setTimeout(()=>reject(Error('Scanner library timed out')),12000);
+  tag.addEventListener('load',()=>clearTimeout(timer));tag.addEventListener('error',()=>clearTimeout(timer));
   tag.onload=()=>window.Html5Qrcode?resolve(window.Html5Qrcode):reject(Error('Scanner library unavailable'));
   tag.onerror=()=>reject(Error('Camera library could not load. Check your internet connection.'));
   document.head.appendChild(tag);
@@ -26,27 +28,42 @@ async function stop(){
  const video=$('video');video.pause();video.srcObject=null;video.style.display='none';
  $('scanner').style.display='none';$('v8camera').innerHTML='';busy=false;
 }
+const card=document.createElement('div');card.id='scanResult';card.className='notice hidden';card.setAttribute('aria-live','polite');$('v8lookupStatus').after(card);
+function showProduct(code,p,message){
+ card.replaceChildren();card.classList.remove('hidden');
+ const title=document.createElement('strong');title.textContent=p?.product_name||p?.product||'Barcode '+code;card.append(title);
+ const detail=document.createElement('p');detail.textContent=message;card.append(detail);
+ const add=document.createElement('button');add.textContent='Add a store price';add.onclick=()=>{if(window.unitpriceNavigate)window.unitpriceNavigate('manage');else showTab('manage');$('barcode').value=code;$('product').focus()};card.append(add);
+ const reports=document.createElement('button');reports.className='alt';reports.style.margin='8px';reports.textContent='View community prices';reports.onclick=()=>{if(window.unitpriceNavigate)window.unitpriceNavigate('community');else document.querySelector('[data-v7tab]').click()};card.append(reports);
+}
 async function handleCode(value){
- const code=String(value||'').replace(/\D/g,'');
+ const code=String(value||'').trim().replace(/[ -]/g,'');
  if(!goodCode(code)){info('Please enter a barcode with 8–14 digits.');return;}
- if(busy)return;busy=true;
- await stop();busy=true;
+ if(busy)return;
+ busy=true;await stop();busy=true;
+ const lookupButton=$('v8manualLookup');lookupButton.disabled=true;
  $('search').value=code;$('v8manualCode').value=code;$('barcode').value=code;
- info('Barcode '+code+' recognized. Looking up product details and community prices…');
- $('search').dispatchEvent(new Event('input',{bubbles:true}));
- window.dispatchEvent(new CustomEvent('unitprice-barcode',{detail:{code}}));
+ ['product','brand'].forEach(id=>$(id).value='');
+ info('Barcode '+code+' recognized. Looking up product details…');
+ card.classList.add('hidden');
+ // An exact saved barcode remains an exact match; public product details never fabricate prices.
+ const local=allPrices().find(x=>String(x.barcode)===code);
+ renderDeals();window.dispatchEvent(new CustomEvent('unitprice-barcode',{detail:{code}}));
+ if(local){$('product').value=local.product;$('brand').value=local.brand||'';showProduct(code,local,'Your saved price matches this barcode. Community reports are available separately.');info('Found in your saved prices.');busy=false;lookupButton.disabled=false;return;}
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
  try{
-  const r=await fetch('https://world.openfoodfacts.org/api/v2/product/'+encodeURIComponent(code)+'.json',{headers:{'Accept':'application/json'}});
+  const r=await fetch('https://world.openfoodfacts.org/api/v2/product/'+encodeURIComponent(code)+'.json',{headers:{Accept:'application/json'},signal:controller.signal});
   if(!r.ok)throw Error('Product database did not respond');
-  const data=await r.json(), p=data.status===1?data.product:null;
-  const name=[p?.product_name,p?.brands].filter(Boolean).join(' — ');
+  const data=await r.json(),p=data.status===1?data.product:null;
   if(p){
-   $('product').value=p.product_name||'';
-   $('brand').value=p.brands||'';
-   info('Scanned '+code+': '+(name||'product identified')+'. Community price reports are shown if available.');
-  }else info('Barcode '+code+' scanned, but no product details were found. Check Community prices or add your own product.');
- }catch(e){info('Barcode '+code+' scanned. Product lookup unavailable right now; you can still save it manually.');}
- busy=false;
+   const name=p.product_name||p.generic_name||'';
+   $('product').value=name;$('brand').value=p.brands||'';
+   if(name){$('search').value=name;renderDeals();}
+   showProduct(code,p,'Brand: '+(p.brands||'Not listed')+(p.quantity?' · Package: '+p.quantity:'')+'. Product identification does not include a current store price. Add a price or check community reports.');
+   info('Product identified for barcode '+code+'.');
+  }else{showProduct(code,null,'No product details found. You can still enter the product name and a store price.');info('Barcode recognized; product is missing from the public database.');}
+ }catch(e){showProduct(code,null,'Product lookup is unavailable. You can still save the product and price manually, or try again.');info(e.name==='AbortError'?'Product lookup timed out. Try again.':'Could not reach the product database.');}
+ finally{clearTimeout(timer);busy=false;lookupButton.disabled=false;}
 }
 async function nativeScan(myGeneration){
  detector=new BarcodeDetector({formats:['ean_13','ean_8','upc_a','upc_e','code_128']});

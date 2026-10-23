@@ -30,5 +30,5 @@ $('v7refresh').onclick=()=>lookup($('v7barcode').value,true);
 $('v7barcode').onkeydown=e=>{if(e.key==='Enter')lookup(e.target.value,true)};
 $('v7city').oninput=()=>{if(lastCode&&cache[lastCode])display(lastCode)};
 $('v7clear').onclick=()=>{$('v7city').value='';if(lastCode&&cache[lastCode])display(lastCode)};
-window.addEventListener('unitprice-barcode',e=>{const code=e.detail?.code;if(codeOk(code)){lookup(code,true);show()}});
+window.addEventListener('unitprice-barcode',e=>{const code=e.detail?.code;if(codeOk(code)){lookup(code,true)}});
 })();
