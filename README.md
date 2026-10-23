@@ -15,3 +15,9 @@ Version 5 search, detailed product categories, Costco, barcode scanner where sup
 The supplied catalog includes DEMO prices; they are not live retailer offers. Favorites and reminders are local to each browser and don't sync across devices. Restock reminders don't send push notifications. Receipt recognition uses an external OCR script when requested and requires checking the results. Family lists share snapshots rather than syncing automatically.
 
 Local storage keys from previous versions are retained to avoid losing existing saved data when updating the same site URL/browser. Export backups before any upgrade.
+
+
+## V7: Free Open Prices reports
+New Community prices tab: enter an 8–14 digit barcode or scan in Find deals; it queries public Open Prices reported observations and displays the date, store, city, USD price, and source link. Data is crowdsourced and historical, NOT live Walmart/Costco/etc pricing. US-dollar entries only, no assumption of store availability. No API key required; availability depends on API connectivity and CORS support. Local cached lookup reports are saved in your browser, refreshed on demand. Old records remain dated. Prices are not automatically merged into user saved-price inventory.
+
+Upload all eight files to the root of the Unit-price-tracker GitHub Pages repository. Existing browser local storage is preserved. Attribution: Open Prices / Open Food Facts (ODbL), https://prices.openfoodfacts.org.
