@@ -1,27 +1,17 @@
-# Unit-price-tracker V4
+# Unit-price-tracker Version 6
 
-Static, GitHub Pages-ready progressive web app. Upload **all six files** in this directory directly to the repository root, including `v4.js`. In GitHub > Settings > Pages select Deploy from branch / `main` / `(root)`.
+Deploy to GitHub Pages repository `Unit-price-tracker`. Upload ALL six files in this directory to the repository root. `index.html` must be at the root. Settings → Pages → Deploy from branch `main`, folder `/ (root)`.
 
-## What is new
-- Receipt image capture and **optional** Tesseract OCR loaded only after tapping Recognize text. Review and manually save each extracted product, price, quantity and store. The image is not uploaded by the app; the OCR library and language data are downloaded from a third-party CDN.
-- Price history observations from manually entered price listings and reviewed receipt entries, with a normalized unit-price SVG line chart.
-- User-defined shopping budget with running estimated remaining-cart total.
-- Family list snapshot links and downloadable list files. **Not live collaborative syncing**. Shared links contain list contents in URL fragment: anyone with the link can read them.
-- Manually recorded coupons and weekly ads with dates and user-provided links; **no live coupon data**.
-- Multi-store optimizer tries combinations of up to four stores with a configurable flat additional-stop cost. Calculates lowest package checkout cost, not best unit-value total or real routing.
+## New in Version 6
+- Favorite products and saved searches.
+- Two-package comparison using compatible base units (weight, volume, count).
+- Restock reminders shown inside the app, with one-click add to list.
+- Standalone shelf-price calculator for comparing two sizes.
 
 ## Preserved
-Product search, camera barcode scanning where supported, Open Food Facts identification, store-specific filters, multiple package sizes and unit-price comparisons, store-by-store list planner, check-offs, price entry, and JSON backup/restore. Existing localStorage list and prices are reused.
+Version 5 search, detailed product categories, Costco, barcode scanner where supported, store-by-store planner, size comparisons, price entry, budgets, charts, receipt tool, coupon collection, trip estimator, family snapshot sharing, backup and restore.
 
-## Important
-Demo prices are illustrations only. No retailer live feeds, authenticated accounts, shared real-time family updates, genuine maps/travel distances or automated coupon application. OCR requires internet and browser compatibility. Keep original receipts to verify details. Browser data is device-specific: export regular backups.
+## Limitations
+The supplied catalog includes DEMO prices; they are not live retailer offers. Favorites and reminders are local to each browser and don't sync across devices. Restock reminders don't send push notifications. Receipt recognition uses an external OCR script when requested and requires checking the results. Family lists share snapshots rather than syncing automatically.
 
-## Store-specific products / Costco
-Added Costco to the sample listings, with Kirkland Signature brand identification, and store-brand examples for Walmart, Target, Aldi, and ShopRite. Every listing now shows **store, product name, brand, category, package quantity/unit, price and unit price**. Search supports brands and categories. Custom price-entry form supports brand and category. These example prices are **illustrations**, not verified retailer prices or guarantees that a particular store stocks an item. Similar generic product types may have different brands or quality; unit-price winners compare category-level products, not necessarily identical SKUs.
-
-
-## Version 5: detailed product descriptions
-- Adds precise example product descriptors (brand, type, form, fat level, protein descriptor, flavor, dietary notes, pack size). These example product identities and prices are **illustrative**, not confirmed store SKUs or nutrition facts.
-- Search by descriptors and filter by product type, fat level and protein label.
-- Manage Prices supports entering detailed descriptions for your own store listings; check the product packaging before making nutrition claims.
-- Existing local storage keys, shopping lists, backup imports, receipts and Version 4 tools retained.
+Local storage keys from previous versions are retained to avoid losing existing saved data when updating the same site URL/browser. Export backups before any upgrade.
