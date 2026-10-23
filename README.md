@@ -1,23 +1,15 @@
-# Unit-price-tracker Version 6
+# Unit-price-tracker Version 8 — Barcode camera scanning
 
-Deploy to GitHub Pages repository `Unit-price-tracker`. Upload ALL six files in this directory to the repository root. `index.html` must be at the root. Settings → Pages → Deploy from branch `main`, folder `/ (root)`.
+Upload all 9 files to the **root** of your existing GitHub Pages repository `Unit-price-tracker`, replacing older files. Keep the same website URL. The existing saved browser shopping lists and prices remain compatible.
 
-## New in Version 6
-- Favorite products and saved searches.
-- Two-package comparison using compatible base units (weight, volume, count).
-- Restock reminders shown inside the app, with one-click add to list.
-- Standalone shelf-price calculator for comparing two sizes.
+## New: phone camera barcode scanning
+- Tap **📷 Scan barcode** on Find deals, allow camera access, and point the rear camera at a UPC/EAN package barcode.
+- Uses html5-qrcode 2.3.8 from a public CDN for iPhone Safari and other browsers, with built-in BarcodeDetector fallback where supported. An internet connection is required to load the scanner library unless previously cached.
+- Barcode detection triggers the existing Open Prices Community prices lookup and Open Food Facts product information lookup. These report community data, not verified current store prices.
+- **Manual barcode field** works without camera support.
+- Stop camera button and automatic stop when leaving the tab. Camera requires an HTTPS page and user permission.
 
-## Preserved
-Version 5 search, detailed product categories, Costco, barcode scanner where supported, store-by-store planner, size comparisons, price entry, budgets, charts, receipt tool, coupon collection, trip estimator, family snapshot sharing, backup and restore.
+## Existing features
+Store comparison, Costco, detailed catalog, shopping list, size/unit price comparison, budgets, receipt tools, family snapshots, coupons, price history, favorites, and community price reports are preserved. Demo prices stay labeled demo.
 
-## Limitations
-The supplied catalog includes DEMO prices; they are not live retailer offers. Favorites and reminders are local to each browser and don't sync across devices. Restock reminders don't send push notifications. Receipt recognition uses an external OCR script when requested and requires checking the results. Family lists share snapshots rather than syncing automatically.
-
-Local storage keys from previous versions are retained to avoid losing existing saved data when updating the same site URL/browser. Export backups before any upgrade.
-
-
-## V7: Free Open Prices reports
-New Community prices tab: enter an 8–14 digit barcode or scan in Find deals; it queries public Open Prices reported observations and displays the date, store, city, USD price, and source link. Data is crowdsourced and historical, NOT live Walmart/Costco/etc pricing. US-dollar entries only, no assumption of store availability. No API key required; availability depends on API connectivity and CORS support. Local cached lookup reports are saved in your browser, refreshed on demand. Old records remain dated. Prices are not automatically merged into user saved-price inventory.
-
-Upload all eight files to the root of the Unit-price-tracker GitHub Pages repository. Existing browser local storage is preserved. Attribution: Open Prices / Open Food Facts (ODbL), https://prices.openfoodfacts.org.
+Keep in mind: Open Food Facts product names and Open Prices price observations may be missing. No live retailer feed is included.
