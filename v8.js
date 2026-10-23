@@ -30,6 +30,7 @@ async function stop(){
 }
 const card=document.createElement('div');card.id='scanResult';card.className='notice hidden';card.setAttribute('aria-live','polite');$('v8lookupStatus').after(card);
 function showProduct(code,p,message){
+ window.dispatchEvent(new CustomEvent('unitprice-product',{detail:{code,product:p||{}}}));
  card.replaceChildren();card.classList.remove('hidden');
  const title=document.createElement('strong');title.textContent=p?.product_name||p?.product||'Barcode '+code;card.append(title);
  const detail=document.createElement('p');detail.textContent=message;card.append(detail);
