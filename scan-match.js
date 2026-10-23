@@ -4,8 +4,8 @@
 const units={g:['mass',1/28.349523125],kg:['mass',1000/28.349523125],oz:['mass',1],lb:['mass',16],ml:['volume',1/29.5735295625],l:['volume',1000/29.5735295625],'fl oz':['volume',1],gal:['volume',128],count:['count',1]};
 function measure(q,u){u=String(u||'').toLowerCase();const f=units[u];q=Number(q);return f&&Number.isFinite(q)&&q>0?{quantity:q,unit:u==='l'?'L':u,group:f[0],amount:q*f[1],label:f[0]==='mass'?'oz':f[0]==='volume'?'fl oz':'item'}:null;}
 function size(p){
- if(p.product_quantity&&p.product_quantity_unit)return measure(p.product_quantity,p.product_quantity_unit);
  if(typeof p.quantity==='number'&&p.unit)return measure(p.quantity,p.unit);
+ if(p.product_quantity&&p.product_quantity_unit)return measure(p.product_quantity,p.product_quantity_unit);
  const raw=String(p.quantity||'').toLowerCase().replace(/,/g,'.').replace(/fluid ounces?/g,'fl oz').replace(/ounces?/g,'oz').replace(/pounds?/g,'lb').replace(/litres?|liters?/g,'l').replace(/grams?/g,'g').replace(/ct\b|pieces?|items?/g,'count');
  // Reject mixed/ambiguous sizes rather than accidentally counting a serving as a package.
  const multi=raw.match(/^\s*(\d+)\s*[x×]\s*([\d.]+)\s*(fl oz|kg|ml|oz|lb|gal|g|l|count)\s*$/);
