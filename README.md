@@ -1,25 +1,20 @@
-# Unit-price-tracker PLUS (static progressive web app)
+# Unit-price-tracker V4
 
-A grocery unit-price comparison and store-by-store planner. No server or build process required.
+Static, GitHub Pages-ready progressive web app. Upload **all six files** in this directory directly to the repository root, including `v4.js`. In GitHub > Settings > Pages select Deploy from branch / `main` / `(root)`.
 
-## Features
-- Search product listings; sort by lowest unit price, package price, store, or product.
-- Filter by store and show only personally saved (non-demo) prices.
-- Barcode scanning in browsers that support `BarcodeDetector` and camera access; Open Food Facts lookup for product names when possible.
-- Store planner: quantity, check-off, automatically choose lowest package price per product, override assigned store, and group by store or product.
-- Running total and per-store totals; copy shopping list; export/import JSON backup.
-- Custom store price entry and removal; localStorage persistence; basic offline caching.
+## What is new
+- Receipt image capture and **optional** Tesseract OCR loaded only after tapping Recognize text. Review and manually save each extracted product, price, quantity and store. The image is not uploaded by the app; the OCR library and language data are downloaded from a third-party CDN.
+- Price history observations from manually entered price listings and reviewed receipt entries, with a normalized unit-price SVG line chart.
+- User-defined shopping budget with running estimated remaining-cart total.
+- Family list snapshot links and downloadable list files. **Not live collaborative syncing**. Shared links contain list contents in URL fragment: anyone with the link can read them.
+- Manually recorded coupons and weekly ads with dates and user-provided links; **no live coupon data**.
+- Multi-store optimizer tries combinations of up to four stores with a configurable flat additional-stop cost. Calculates lowest package checkout cost, not best unit-value total or real routing.
 
-## Publish free on GitHub Pages
-Upload the **contents** of the `unitwise` folder to the root of a GitHub repository, then Settings > Pages > Deploy from a branch > main > /(root). Visit the HTTPS Pages URL on a phone and use Add to Home Screen.
+## Preserved
+Product search, camera barcode scanning where supported, Open Food Facts identification, store-specific filters, multiple package sizes and unit-price comparisons, store-by-store list planner, check-offs, price entry, and JSON backup/restore. Existing localStorage list and prices are reused.
 
-## Important limitations
-All built-in prices are fake illustrative DEMO data, not retailer offers. Real-time retailer listings, sale prices, inventory, geographic matching and purchase links require properly licensed store feeds/APIs and possibly a backend. Barcode lookup does not automatically obtain retailer prices. For same-named products unit prices are normalized within compatible measurement categories; variants/brand differences can still matter. The shopping planner optimizes each item separately using lowest *package* price, not a guaranteed cheapest overall trip; it does not include taxes, driving costs or memberships. Data is stored only in this browser and is not cloud synchronized. Camera scanner browser support varies.
+## Important
+Demo prices are illustrations only. No retailer live feeds, authenticated accounts, shared real-time family updates, genuine maps/travel distances or automated coupon application. OCR requires internet and browser compatibility. Keep original receipts to verify details. Browser data is device-specific: export regular backups.
 
-## New: package-size value comparison
-- Compare multiple package sizes of the same product in any compatible weight, volume, or count unit.
-- Best-unit-price badges, larger-size per-unit savings, and summary insights.
-- Store planner can auto-select the best unit value or the cheapest upfront package price.
-- Demo listings include different sizes of pasta, cereal, and eggs.
-- Personal price overrides apply to an exact package amount rather than erasing other sizes.
-- Price comparisons only work for matching product labels and compatible measurements. No live retailer prices or stock feeds are included.
+## Store-specific products / Costco
+Added Costco to the sample listings, with Kirkland Signature brand identification, and store-brand examples for Walmart, Target, Aldi, and ShopRite. Every listing now shows **store, product name, brand, category, package quantity/unit, price and unit price**. Search supports brands and categories. Custom price-entry form supports brand and category. These example prices are **illustrations**, not verified retailer prices or guarantees that a particular store stocks an item. Similar generic product types may have different brands or quality; unit-price winners compare category-level products, not necessarily identical SKUs.
